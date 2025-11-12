@@ -1,0 +1,17 @@
+services:
+  web: 
+    build: .
+    container_name: django_backend
+    ports: 
+      - 8000:8000
+    volumes:
+      - ./backend:/app
+
+  db:
+    build: postgres:latest
+    container_name: application_database
+    volumes:
+      - application_database:/var/lib/postgresql/data/
+
+volumes:
+  application_database: 
