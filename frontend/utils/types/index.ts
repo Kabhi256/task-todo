@@ -1,10 +1,10 @@
 import { ReactNode } from "react"
 
 export interface Todo {
-    id: number
+    id?: number
     task_name: string
     description: string
-    status: string
+    status?: string
     created_at?: Date
     created_by?: string
 }

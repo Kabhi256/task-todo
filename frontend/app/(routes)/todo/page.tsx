@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Todo } from "@/utils/types"
 import { Edit, Plus, Trash } from "lucide-react"
 import ButtonDialog from "@/components/todo/ButtonDialog"
@@ -25,8 +25,11 @@ function getBadgeVariant(status: string){
 export default async function Todos(){
     const response = await fetch("http://localhost:3000/api/todo", {  cache: "no-store"})
     const data = await response.json()
+    // console.log('================================================')
+    // console.log(`data${data}`)
 
-    const todos: Todo[] = data.todos
+    // const todos: Todo[] = data.todos
+    const todos: Todo[] = data.todos ?? []
     // console.table(todos)
     
     
@@ -49,10 +52,13 @@ export default async function Todos(){
                                 {/* Created by and created at */}
                                 <div className="flex gap-4 items-center justify-between">
                                     <Badge variant={getBadgeVariant(todo.status)} >{ todo.status }</Badge>
-                                    <p> Created by: <span className="font-medium"> {todo.created_by} </span> </p>
+                                    {/* <p> Created by: <span className="font-medium"> {todo.created_by} </span> </p> */}
                                 </div>
 
                             </CardDescription>
+                            <CardAction>
+                                <Button variant={'secondary'} size={'sm'}> {todo.created_by}   </Button>
+                            </CardAction>
                             </CardHeader>
                             <CardContent>
                                 <p className="text-sm text-mute-foreground"> {todo.description} </p>

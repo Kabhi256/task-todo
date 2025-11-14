@@ -1,36 +1,26 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft } from "lucide-react";
-import Link from "next/link";
-import Form from "next/form"
-import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { clientApi } from "@/utils/api/clientAPi";
 import { createTodo } from "@/lib/actions/todo";
+import { ArrowLeft } from "lucide-react";
+import Form from "next/form";
+import Link from "next/link";
 
+export default async function EditTodo({ params } : { params:  { id: string }  }){
+    const { id } = params
+    const idNumber = Number(id)
+    const response = await fetch(`http://localhost:3000/api/todo/${idNumber}`)
+    const data = await response.json()
+    const todo = data.todo
 
-// async function createTodo(form_data: FormData){
-//     "use server"
-//     const task_name = form_data.get('task_name') as string
-//     const description = form_data.get('description') as string
-
-//     try{
-//         await clientApi('todos', {
-//             method: "POST",
-//             body: JSON.stringify({ task_name, description })
-//         })
-//     }catch(error){
-//         console.error("Error creating todo: ", error)
-//     }
-// }
-
-export default async function CreateTodo(){
-
-    return(
+    console.log('========================')
+    console.log(`TODO: ${todo}`)
+    return (
         <section className="p-8">
             <div className="flex items-center justify-between gap-4 flex-wrap mb-4">
-                <h1 className="text-2xl font-bold text-primary mb-6">TODO&apos;S</h1>
+                <h1 className="text-2xl font-bold text-primary mb-6">Edit {id} TODO&apos;S</h1>
                 <Link href={'/todo'}>
                     <Button>
                         <ArrowLeft />Back to Todo&apos;s

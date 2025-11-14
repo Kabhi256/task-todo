@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET( request : NextRequest ){
     try{
         const response = await api.get('todos')
+        // console.log(response.data)
         return NextResponse.json(response.data, { status: 200 })
     }catch(error){
         return NextResponse.json({ success : false, error: error instanceof Error ? error.message : "Internal server error" }, { status: 500 })

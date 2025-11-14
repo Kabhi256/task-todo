@@ -9,7 +9,7 @@ export default function Index(){
                 <div className="max-w-4xl mx-auto">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Et dicta nam accusamus illum facere, molestiae sed at perspiciatis, voluptatem nostrum odit suscipit vero fugit omnis repellat voluptatum neque aspernatur ad error! Adipisci laborum, officiis enim debitis totam autem ex et.</div>
                 <div className="flex gap-4 items-center justify-center">
                 <Button>
-                    <Link href={'/sign-up'}>Sign up</Link>
+                    <Link href={'/sign-in'}>Sign In</Link>
                 </Button>
                 <Button variant={'outline'}>
                     <Link href={'/todo'}>Browse Todos</Link>

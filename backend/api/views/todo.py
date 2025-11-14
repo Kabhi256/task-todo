@@ -4,6 +4,7 @@ from api.serializers.todo import TodoSerializer
 from todo.models.todo import Todo
 from rest_framework import status
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.models import User
 
 class TodoDetail(APIView):
     def get_object(self, pk) -> Todo: 
@@ -61,15 +62,21 @@ class TodoListCreate(APIView):
         try:
             todos = Todo.objects.all()
             serializer = TodoSerializer(todos, many=True)
-            return Response({ 'success' : True, 'todos' : serializer.data }, status=status.HTTP_200_OK)
+            return Response({ 'success' : True, 'todos': serializer.data } , status=status.HTTP_200_OK)
         except Exception as e:
             return Response({ 'success': False, 'error': f'{str(e)}' }, status=status.HTTP_400_BAD_REQUEST)
         
     def post(self, request):
+        # print(f"RAW POST DATA: {request.data}")
         try:
             serializer = TodoSerializer(data=request.data)
             if serializer.is_valid():
-                serializer.save(user=request.user)
+                # serializer.save(user=request.user)
+
+                serializer.save(created_by=User.objects.get(id=1))
                 return Response({ 'success': True, 'todo': serializer.data }, status=status.HTTP_201_CREATED)
+            else:
+                print("Serializer errors", serializer.errors)
+                return Response(serializer.errors, status=400)
         except Exception as e:
             return Response({ 'success': False, 'error': f'{str(e)}' }, status=status.HTTP_400_BAD_REQUEST)

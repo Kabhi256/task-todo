@@ -2,6 +2,7 @@ import { type ButtonDialog } from "@/utils/types";
 import { Button } from "../ui/button";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
 import { X } from "lucide-react";
+import Form from "next/form";
 
 export default function CancelButtonDialog({ icon }: ButtonDialog){
     return (
@@ -20,14 +21,14 @@ export default function CancelButtonDialog({ icon }: ButtonDialog){
                     </DialogDescription>
                 </DialogHeader>
 
-                <form >
+                <Form action={''}>
                     <DialogFooter>
                         <DialogClose asChild>
                             <Button variant={'outline'}> Cancel </Button>
                         </DialogClose>
-                        <Button type="submit">Confirm</Button>
+                        <Button type="submit" variant={'destructive'}>Confirm</Button>
                     </DialogFooter>
-                </form>
+                </Form>
             </DialogContent>
         
         </Dialog>

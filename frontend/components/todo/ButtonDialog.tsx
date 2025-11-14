@@ -7,6 +7,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ReactNode } from "react";
 import { Textarea } from "../ui/textarea";
+import Form from "next/form";
+import { updateTodo } from "@/lib/actions/todo";
 
 interface ButtonDialogProps extends ButtonDialogType {
   icon: ReactNode
@@ -30,7 +32,7 @@ export default function ButtonDialog({ icon, task_name, description }: ButtonDia
             </DialogHeader>
 
             {/* Now we put the form INSIDE the dialog */}
-            <form>
+            <Form action={updateTodo}>
             <div className="grid gap-4">
                 <div className="grid gap-3">
                     <Label htmlFor="task_name">Task name</Label>
@@ -49,7 +51,7 @@ export default function ButtonDialog({ icon, task_name, description }: ButtonDia
                 </DialogClose>
                 <Button type="submit">Save changes</Button>
             </DialogFooter>
-            </form>
+            </Form>
         </DialogContent>
         </Dialog>
     )
