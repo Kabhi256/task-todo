@@ -1,8 +1,9 @@
 import { api } from "@/utils/api/serverApi";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET( request: NextRequest, id: number ){
+export async function GET( request: NextRequest, { params } : { params : { id : number } } ){
     try{
+        const { id } = await params
         const response = await api.get(`todos/${id}`)
         return NextResponse.json(response.data, {status: 200} )
     }catch(error){
