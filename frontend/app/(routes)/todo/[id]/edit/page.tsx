@@ -3,20 +3,16 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { createTodo } from "@/lib/actions/todo";
+import { updateTodo } from "@/lib/actions/todo";
 import { ArrowLeft } from "lucide-react";
 import Form from "next/form";
 import Link from "next/link";
 
-export default async function EditTodo({ params } : { params:  { id: string }  }){
-    const { id } = params
-    const idNumber = Number(id)
-    const response = await fetch(`http://localhost:3000/api/todo/${idNumber}`)
-    const data = await response.json()
-    const todo = data.todo
-
-    console.log('========================')
-    console.log(`TODO: ${todo}`)
+export default async function EditTodo({ params } : { params:  { id: number }  }){
+    const { id } = await params
+    const response = await fetch(`http://localhost:3000/api/todo/${id}`)
+    const updateId = updateTodo.bind(null, id)
+    
     return (
         <section className="p-8">
             <div className="flex items-center justify-between gap-4 flex-wrap mb-4">
@@ -37,7 +33,7 @@ export default async function EditTodo({ params } : { params:  { id: string }  }
                     </CardHeader>
 
                     <CardContent className="space-y-4">
-                        <Form action={createTodo} className="space-y-4">
+                        <Form action={updateId} className="space-y-4">
                             <div className="space-y-4">
                                 <Label htmlFor="task_name">Task Name <span className="text-red-500">*</span> </Label>
                                 <Input id="task_name" name="task_name" placeholder="e.g. Finish Next Js project"/>

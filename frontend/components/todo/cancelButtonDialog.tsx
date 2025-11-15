@@ -1,10 +1,13 @@
 import { type ButtonDialog } from "@/utils/types";
 import { Button } from "../ui/button";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "../ui/dialog";
-import { X } from "lucide-react";
 import Form from "next/form";
+import { deleteTodo } from "@/lib/actions/todo";
 
-export default function CancelButtonDialog({ icon }: ButtonDialog){
+export default function CancelButtonDialog({ icon, todo }: ButtonDialog){
+    console.log(todo.task_name)
+    // const deleteId = deleteTodo.bind(null, todo.id)
+    
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -21,7 +24,8 @@ export default function CancelButtonDialog({ icon }: ButtonDialog){
                     </DialogDescription>
                 </DialogHeader>
 
-                <Form action={''}>
+                {/* Pass an ID yo the todo */}
+                <Form action={deleteTodo}>
                     <DialogFooter>
                         <DialogClose asChild>
                             <Button variant={'outline'}> Cancel </Button>

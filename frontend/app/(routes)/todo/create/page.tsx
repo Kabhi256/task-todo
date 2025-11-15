@@ -6,24 +6,9 @@ import Form from "next/form"
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { clientApi } from "@/utils/api/clientAPi";
 import { createTodo } from "@/lib/actions/todo";
 
 
-// async function createTodo(form_data: FormData){
-//     "use server"
-//     const task_name = form_data.get('task_name') as string
-//     const description = form_data.get('description') as string
-
-//     try{
-//         await clientApi('todos', {
-//             method: "POST",
-//             body: JSON.stringify({ task_name, description })
-//         })
-//     }catch(error){
-//         console.error("Error creating todo: ", error)
-//     }
-// }
 
 export default async function CreateTodo(){
 

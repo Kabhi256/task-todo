@@ -25,12 +25,8 @@ function getBadgeVariant(status: string){
 export default async function Todos(){
     const response = await fetch("http://localhost:3000/api/todo", {  cache: "no-store"})
     const data = await response.json()
-    // console.log('================================================')
-    // console.log(`data${data}`)
 
-    // const todos: Todo[] = data.todos
     const todos: Todo[] = data.todos ?? []
-    // console.table(todos)
     
     
     return (
@@ -69,7 +65,7 @@ export default async function Todos(){
                                 </p>
                                 <div className="flex flex-col md:flex-row gap-4 items-center justify-end">
                                     <ButtonDialog icon={<Edit className="w-4 h-4"/>} description={todo.description} task_name={todo.task_name}/>
-                                    <CancelButtonDialog icon={<Trash className="w-4 h-4"/>} />
+                                    <CancelButtonDialog icon={<Trash className="w-4 h-4"/>} todo={todo.id}/>
                                 </div>
 
                             </CardFooter>
