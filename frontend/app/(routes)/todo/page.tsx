@@ -23,7 +23,7 @@ function getBadgeVariant(status: string){
 }
 
 export default async function Todos(){
-    const response = await fetch("http://localhost:3000/api/todo", {  cache: "no-store"})
+    const response = await fetch("http://localhost:3000/api/todo", { next: {tags: ['todos']} })
     const data = await response.json()
 
     const todos: Todo[] = data.todos ?? []
@@ -47,7 +47,7 @@ export default async function Todos(){
                             <CardDescription>
                                 {/* Created by and created at */}
                                 <div className="flex gap-4 items-center justify-between">
-                                    <Badge variant={getBadgeVariant(todo.status)} >{ todo.status }</Badge>
+                                    <Badge variant={getBadgeVariant(todo.status!)} >{ todo.status }</Badge>
                                     {/* <p> Created by: <span className="font-medium"> {todo.created_by} </span> </p> */}
                                 </div>
 
@@ -61,11 +61,11 @@ export default async function Todos(){
                             </CardContent>
                             <CardFooter className="flex items-center justify-between gap-4">
                                 <p className="text-sm font-semibold text-muted-foreground">
-                                    { new Date(todo.created_at).toLocaleDateString('en-UG', { year: 'numeric', month: 'long' , day: 'numeric'})}
+                                    { new Date(todo.created_at ?? "").toLocaleDateString('en-UG', { year: 'numeric', month: 'long' , day: 'numeric'})}
                                 </p>
                                 <div className="flex flex-col md:flex-row gap-4 items-center justify-end">
-                                    <ButtonDialog icon={<Edit className="w-4 h-4"/>} description={todo.description} task_name={todo.task_name}/>
-                                    <CancelButtonDialog icon={<Trash className="w-4 h-4"/>} todo={todo.id}/>
+                                    <ButtonDialog todo={todo} icon={<Edit className="w-4 h-4"/>} description={todo.description} task_name={todo.task_name}/>
+                                    <CancelButtonDialog icon={<Trash className="w-4 h-4"/>} todo={todo}/>
                                 </div>
 
                             </CardFooter>

@@ -14,7 +14,10 @@ interface ButtonDialogProps extends ButtonDialogType {
   icon: ReactNode
 }
 
-export default function ButtonDialog({ icon, task_name, description }: ButtonDialogProps) {
+export default function ButtonDialog({ icon, task_name, description, todo }: ButtonDialogProps) {
+    
+    const updateId = updateTodo.bind(null, todo.id!)
+
     return (
         <Dialog>
         {/* This is what opens the dialog */}
@@ -32,7 +35,7 @@ export default function ButtonDialog({ icon, task_name, description }: ButtonDia
             </DialogHeader>
 
             {/* Now we put the form INSIDE the dialog */}
-            <Form action={updateTodo}>
+            <Form action={updateId}>
             <div className="grid gap-4">
                 <div className="grid gap-3">
                     <Label htmlFor="task_name">Task name</Label>

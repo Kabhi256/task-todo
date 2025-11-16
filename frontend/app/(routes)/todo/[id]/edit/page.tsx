@@ -4,13 +4,17 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { updateTodo } from "@/lib/actions/todo";
+import { Todo } from "@/utils/types";
 import { ArrowLeft } from "lucide-react";
 import Form from "next/form";
 import Link from "next/link";
 
-export default async function EditTodo({ params } : { params:  { id: number }  }){
+export default async function EditTodo({ params } : { params: Promise< { id: number }>  }){
     const { id } = await params
     const response = await fetch(`http://localhost:3000/api/todo/${id}`)
+    const data = await response.json()
+    const todo: Todo = data.todo
+    // console.log(todo.task_name)
     const updateId = updateTodo.bind(null, id)
     
     return (
@@ -36,16 +40,16 @@ export default async function EditTodo({ params } : { params:  { id: number }  }
                         <Form action={updateId} className="space-y-4">
                             <div className="space-y-4">
                                 <Label htmlFor="task_name">Task Name <span className="text-red-500">*</span> </Label>
-                                <Input id="task_name" name="task_name" placeholder="e.g. Finish Next Js project"/>
+                                <Input id="task_name" name="task_name" placeholder="e.g. Finish Next Js project" defaultValue={todo.task_name}/>
                             </div>
 
                             <div className="space-y-4">
                                 <Label htmlFor="description">Description <span className="text-red-500">*</span> </Label>
-                                <Textarea id="description" name="description" placeholder="Describe the task details here..."/>
+                                <Textarea id="description" name="description" placeholder="Describe the task details here..." defaultValue={todo.description}/>
                             </div>
                             <div className="space-y-4">
                                 <Label htmlFor="status"> Status <span className="text-red-500">*</span> </Label>
-                                <Input value={'Pending'} disabled className="cursor-auto"/>
+                                <Input defaultValue={todo.status}  className="cursor-auto"/>
                             </div>
 
                             <Button type="submit" variant={'default'} className="mt-4">Create Task</Button>
